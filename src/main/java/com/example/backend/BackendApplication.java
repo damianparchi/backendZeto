@@ -1,6 +1,6 @@
 package com.example.backend;
 
-import com.example.backend.entities.Authority;
+import com.example.backend.entities.Roles;
 import com.example.backend.entities.User;
 import com.example.backend.repositories.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,9 @@ public class BackendApplication {
 
     @PostConstruct
     protected void initAdmin() {
-        List<Authority> authorityList = new ArrayList<>();
+        List<Roles> rolesList = new ArrayList<>();
 
-        authorityList.add(createAuthority("ADMIN","Admin role"));
+        rolesList.add(createRole("ADMIN","Admin role"));
 
 
         User adminUser = new User();
@@ -41,7 +41,7 @@ public class BackendApplication {
         adminUser.setLastname("adminowski");
         adminUser.setPassword(passwordEncoder.encode("admin"));
         adminUser.setEnabled(true);
-        adminUser.setAuthorities(authorityList);
+        adminUser.setRoles(rolesList);
 
         userDetailsRepository.save(adminUser);
 
@@ -49,9 +49,9 @@ public class BackendApplication {
 
     @PostConstruct
     protected void initUser() {
-        List<Authority> authorityList = new ArrayList<>();
+        List<Roles> rolesList = new ArrayList<>();
 
-        authorityList.add(createAuthority("USER","User role"));
+        rolesList.add(createRole("USER","User role"));
         User user = new User();
 
         user.setUserName("parchi");
@@ -59,27 +59,17 @@ public class BackendApplication {
         user.setLastname("parchi");
         user.setPassword(passwordEncoder.encode("damian123"));
         user.setEnabled(true);
-        user.setAuthorities(authorityList);
+        user.setRoles(rolesList);
 
         userDetailsRepository.save(user);
     }
 
-    private Authority createAuthority(String roleCode, String roleDescription) {
-        Authority authority = new Authority();
-        authority.setRoleCode(roleCode);
-        authority.setRoleDescription(roleDescription);
-        return authority;
+    private Roles createRole(String roleCode, String roleDescription) {
+        Roles roles = new Roles();
+        roles.setRoleCode(roleCode);
+        roles.setRoleDescription(roleDescription);
+        return roles;
     }
 
-	@GetMapping("/path")
-	public List<String> home(){
-		return List.of("Hello","World");
-
-	}
-
-	@RequestMapping(value = "/test/postmethod", method = RequestMethod.POST, consumes = "application/json")
-	public String getData(@RequestBody Employee employee) {
-		return "Imie pracownika: " +employee.getFirst_name() + "\nNazwisko pracownika: " + employee.getLast_name() + "\nlogin pracownika " + employee.getLogin() + "\nhasło pracownika: " + employee.getPassword();
-	}
 
 }

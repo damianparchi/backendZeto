@@ -4,9 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
-@Table(name = "AUTH_AUTHORITY")
+@Table(name = "roles")
 @Entity
-public class Authority implements GrantedAuthority {
+public class Roles implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

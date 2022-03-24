@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "AUTH_USER_DETAILS")
+@Table(name = "users")
 @Entity
 public class User implements UserDetails {
     @Id
@@ -19,7 +19,7 @@ public class User implements UserDetails {
     @Column(name = "USER_NAME", unique = true)
     private String userName;
 
-    @Column(name = "USER_KEY")
+    @Column(name = "password")
     private String password;
 
     @Column(name = "CREATED_ON")
@@ -44,12 +44,12 @@ public class User implements UserDetails {
     private boolean enabled;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinTable(name = "AUTH_USER_AUTHORITY", joinColumns = @JoinColumn(referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
-    private List<Authority> authorities;
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
+    private List<Roles> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
+        return roles;
     }
 
     @Override
@@ -150,8 +150,8 @@ public class User implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
+    public void setRoles(List<Roles> roles) {
+        this.roles = roles;
     }
 
     public void setEnabled(boolean enabled) {
