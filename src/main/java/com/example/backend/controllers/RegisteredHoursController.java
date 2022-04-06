@@ -5,20 +5,13 @@ import com.example.backend.entities.User;
 import com.example.backend.repositories.RegisteredHoursRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.persistence.Entity;
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -29,8 +22,6 @@ public class RegisteredHoursController {
     @Autowired
     private RegisteredHoursRepository registeredHoursRepository;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
 
     @PostMapping(path = "/register")
     public @ResponseBody String registerHours (){

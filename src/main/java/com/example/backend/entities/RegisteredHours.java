@@ -1,7 +1,9 @@
 package com.example.backend.entities;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,9 +34,7 @@ public class RegisteredHours {
         return ended;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(long id) { this.id = id; }
 
     public void setIdUser(long idUser) {
         this.idUser = idUser;
