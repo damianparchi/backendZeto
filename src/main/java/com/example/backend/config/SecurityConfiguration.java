@@ -52,20 +52,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //http.authorizeRequests().anyRequest().permitAll(); //pozwala wejsc kazdemu requestowi
+        http.authorizeRequests().anyRequest().permitAll(); //pozwala wejsc kazdemu requestowi
 
-        //http.authorizeRequests().anyRequest().authenticated(); // kazdy request ktory wchodzi do app musi byc autoryzowany
+//        http.authorizeRequests().anyRequest().authenticated(); // kazdy request ktory wchodzi do app musi byc autoryzowany
 
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint).and().authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login").permitAll()
-                        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
-                        .addFilterBefore(new JWTAuthenticationFilter(userService, jwtTokenHelper),
-                                UsernamePasswordAuthenticationFilter.class);
-        http.cors();
-
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
+//                .authenticationEntryPoint(authenticationEntryPoint).and().authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login").permitAll()
+//                        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
+//                        .addFilterBefore(new JWTAuthenticationFilter(userService, jwtTokenHelper),
+//                                UsernamePasswordAuthenticationFilter.class);
+//        http.cors();
+//
         http.csrf().disable().headers().frameOptions().disable();
-        //http.formLogin(); // login page
-
-        //http.httpBasic(); // basic authentication
+//        http.formLogin(); // login page
+//
+//        http.httpBasic(); // basic authentication
     }
 }
