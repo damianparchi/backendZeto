@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface RegisteredHoursRepository extends JpaRepository<RegisteredHours, Long> {
     List<RegisteredHours> findByIdUserAndEndedIsNull(Long id);
+    List<RegisteredHours> findByStartedNewIsNotNull();
+    List<RegisteredHours> findByIdUserAndStartedNewIsNotNull(Long id);
+    List<RegisteredHours> findByIdAndIdUser(Long id, long idUser);
+    List<RegisteredHours> findByIdUser(Long idUser);
 }

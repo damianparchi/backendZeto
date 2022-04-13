@@ -16,6 +16,9 @@ public class RegisteredHours {
     private long idUser;
     private LocalDateTime started;
     private LocalDateTime ended;
+    private LocalDateTime startedNew;
+    private LocalDateTime endedNew;
+    private String reason;
 
 
     public long getId() {
@@ -47,4 +50,16 @@ public class RegisteredHours {
     public void setEnded(LocalDateTime ended) {
         this.ended = ended;
     }
+
+    public LocalDateTime getStartedNew() { return startedNew; }
+
+    public void setStartedNew(LocalDateTime startedNew) { this.startedNew = startedNew; }
+
+    public LocalDateTime getEndedNew() { return endedNew; }
+
+    public void setEndedNew(LocalDateTime endedNew) { this.endedNew = endedNew; }
+
+    public void setReason(String reason) { this.reason = reason; }
+
+    public String getReason() { return reason; }
 }
