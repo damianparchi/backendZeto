@@ -30,6 +30,9 @@ public class UserController {
                                         @RequestParam String email, @RequestParam String phoneNumber) {
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(u.getAuthorities().iterator().next().getAuthority().equals("ADMIN")) {
+            if(userDetailsRepository.findByUserName(userName) != null){
+                return "Nieprawidłowa nazwa użytkownika";
+            }
             List<Roles> rolesList = new ArrayList<>();
             rolesList.add(createUser());
             User user = new User();
