@@ -4,6 +4,9 @@ import com.example.backend.entities.Roles;
 import com.example.backend.entities.User;
 import com.example.backend.repositories.RoleRepository;
 import com.example.backend.repositories.UserDetailsRepository;
+import com.example.backend.requests.PasswordChange;
+import com.example.backend.requests.RegisterForm;
+import com.example.backend.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,26 +28,24 @@ public class UserController {
     private RoleRepository roleRepository;
 
     @PostMapping(path = "/add")
-    public @ResponseBody String addUser(@RequestParam String userName, @RequestParam String password,
-                                        @RequestParam String firstName, @RequestParam String lastName,
-                                        @RequestParam String email, @RequestParam String phoneNumber) {
+    public @ResponseBody String addUser(@RequestBody RegisterForm registerForm) {
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(u.getAuthorities().iterator().next().getAuthority().equals("ADMIN")) {
-            if(userDetailsRepository.findByUserName(userName) != null){
+            if(userDetailsRepository.findByUserName(registerForm.getUserName()) != null){
                 return "Nieprawidłowa nazwa użytkownika";
             }
             List<Roles> rolesList = new ArrayList<>();
             rolesList.add(createUser());
             User user = new User();
 
-            user.setUserName(userName);
-            user.setFirstName(firstName);
-            user.setLastname(lastName);
-            user.setEmail(email);
-            user.setPhoneNumber(phoneNumber);
+            user.setUserName(registerForm.getUserName());
+            user.setFirstName(registerForm.getFirstName());
+            user.setLastname(registerForm.getLastName());
+            user.setEmail(registerForm.getEmail());
+            user.setPhoneNumber(registerForm.getPhoneNumber());
             user.setCreatedAt(new Date(System.currentTimeMillis()));
             user.setUpdatedAt(new Date(System.currentTimeMillis()));
-            user.setPassword(passwordEncoder.encode(password));
+            user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
             user.setEnabled(true);
             user.setRoles(rolesList);
 
@@ -73,7 +74,6 @@ public class UserController {
         @PostMapping(path = "/edytuj")
         public @ResponseBody String editUser(@RequestParam(required = false) Long id,
                                              @RequestParam(required = false) String userName,
-                                             @RequestParam(required = false) String password,
                                              @RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String lastName,
                                              @RequestParam(required = false) String email,
@@ -98,9 +98,6 @@ public class UserController {
                 }
                 user.setUserName(userName);
             }
-            if (password != null){
-                user.setPassword(passwordEncoder.encode(password));
-            }
             if (firstName != null){
                 user.setFirstName(firstName);
             }
@@ -116,6 +113,31 @@ public class UserController {
             user.setUpdatedAt(new Date(System.currentTimeMillis()));
             userDetailsRepository.save(user);
             return "Pomyślnie zapisano zmiany";
+        }
+
+        @PostMapping(path = "/haslo")
+        public @ResponseBody String changePassword(@RequestBody PasswordChange passwordChange,
+                                                   @RequestParam(required = false) Long id){
+            User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User user;
+            if (id != null){
+                if(u.getAuthorities().iterator().next().getAuthority().equals("ADMIN")){
+                    user = userDetailsRepository.getById(id);
+                }
+                else {
+                    user = userDetailsRepository.getById(u.getId());
+                }
+            }
+            else{
+                user = userDetailsRepository.getById(u.getId());
+            }
+
+            if(Objects.equals(passwordChange.getPassword(), "")){
+                return "Hasło nie może być puste";
+            }
+            user.setPassword(passwordEncoder.encode(passwordChange.getPassword()));
+            userDetailsRepository.save(user);
+            return "Hasło zmienione pomyślnie";
         }
 
         @PostMapping(path = "/admin")
@@ -153,15 +175,22 @@ public class UserController {
     }
 
     @GetMapping(path = "/view")
-    private @ResponseBody List<User> viewUsers(@RequestParam(required = false) Long id){
+    private @ResponseBody List<UserResponse> viewUsers(@RequestParam(required = false) Long id){
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(u.getAuthorities().iterator().next().getAuthority().equals("ADMIN")) {
+            ArrayList<UserResponse> users = new ArrayList<>();
             if(id != null){
-                ArrayList<User> users = new ArrayList<>();
-                userDetailsRepository.findById(id).ifPresent(users::add);
+                User user = userDetailsRepository.getById(id);
+                users.add(new UserResponse(user.getId(), user.getUserName(), user.getFirstName(),
+                        user.getLastname(), user.getEmail(), user.getPhoneNumber()));
                 return users;
             }
-            return userDetailsRepository.findAll();
+            List<User> lista = userDetailsRepository.findAll();
+            for(User user: lista){
+                users.add(new UserResponse(user.getId(), user.getUserName(), user.getFirstName(),
+                        user.getLastname(), user.getEmail(), user.getPhoneNumber()));
+            }
+            return users;
         }
         return null;
     }

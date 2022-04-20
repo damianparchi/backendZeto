@@ -45,6 +45,7 @@ public class BackendApplication {
         user.setEmail("admin");
         user.setPhoneNumber("admin");
         user.setCreatedAt(new Date(System.currentTimeMillis()));
+        user.setUpdatedAt(new Date(System.currentTimeMillis()));
         user.setPassword(passwordEncoder.encode("admin"));
         user.setEnabled(true);
         user.setRoles(rolesList);
