@@ -30,14 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private AuthenticationEntryPoint authenticationEntryPoint;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //definujemy username i password do autoryzacji in-memory
-        auth.inMemoryAuthentication().withUser("parchi").password(passwordEncoder().encode("damian123")).roles("USER","ADMIN");
-
-        //database auth
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() { // musimy encodowac password

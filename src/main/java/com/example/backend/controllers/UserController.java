@@ -177,8 +177,8 @@ public class UserController {
     @GetMapping(path = "/view")
     private @ResponseBody List<UserResponse> viewUsers(@RequestParam(required = false) Long id){
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ArrayList<UserResponse> users = new ArrayList<>();
         if(u.getAuthorities().iterator().next().getAuthority().equals("ADMIN")) {
-            ArrayList<UserResponse> users = new ArrayList<>();
             if(id != null){
                 User user = userDetailsRepository.getById(id);
                 users.add(new UserResponse(user.getId(), user.getUserName(), user.getFirstName(),
@@ -192,7 +192,10 @@ public class UserController {
             }
             return users;
         }
-        return null;
+        User user = userDetailsRepository.getById(u.getId());
+        users.add(new UserResponse(user.getId(), user.getUserName(), user.getFirstName(),
+                user.getLastname(), user.getEmail(), user.getPhoneNumber()));
+        return users;
     }
 
     private Roles createUser() {
