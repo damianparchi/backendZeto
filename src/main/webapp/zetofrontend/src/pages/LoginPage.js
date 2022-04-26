@@ -1,10 +1,10 @@
-import react, { useState } from 'react';
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { authenticate, authFailure, authSuccess } from '../redux/authActions';
-import './loginpage.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faSignInAlt, faEnvelope, faLock,} from "@fortawesome/free-solid-svg-icons";
 import { userLogin } from '../api/authenticationService';
-import { Alert, Spinner } from 'react-bootstrap';
+import {Row, Col, Card, Form, InputGroup, FormControl, Button, Alert, Spinner} from "react-bootstrap";
 
 const LoginPage = ({ loading, error, ...props }) => {
 
@@ -51,7 +51,7 @@ const LoginPage = ({ loading, error, ...props }) => {
 
         });
         console.log("Loading again",loading);
-        
+
 
     }
 
@@ -67,85 +67,88 @@ const LoginPage = ({ loading, error, ...props }) => {
     console.log("Loading ", loading);
 
     return (
-        <div className="login-page">
-            <section className="h-100">
-                <div className="container h-100">
-                    <div className="row justify-content-md-center h-100">
-                        <div className="card-wrapper">
-                            <div className="card fat">
-                                <div className="card-body">
-                                    <h4 className="card-title">Zaloguj się!</h4>
-                                    <form className="my-login-validation" onSubmit={handleSubmit} noValidate={true}>
-                                        <div className="form-group">
-                                            <label htmlFor="email">Login</label>
-                                            <input id="username" type="text"
-                                                className="form-control"
-                                                minLength={5}
-                                                value={values.userName}
-                                                onChange={handleChange}
-                                                name="userName"
-                                                required />
-                                            <div className="invalid-feedback">
-                                                UserId is invalid
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Hasło
-                                                <a href="forgot.html" className="float-right">
-                                                    Zapomniałeś hasła?
-                                                </a>
-                                            </label>
-                                            <input
-                                                id="password"
-                                                type="password"
-                                                className="form-control"
-                                                minLength={8} value={values.password}
-                                                onChange={handleChange}
-                                                name="password"
-                                                required />
-                                            <div className="invalid-feedback">
-                                                Hasło jest wymagane!
-                                            </div>
-                                        </div>
-                                        <div className="form-group">
-                                            <div className="custom-control custom-checkbox">
-                                                <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                                <label className="custom-control-label" htmlFor="customCheck1">Zapamiętaj</label>
-                                            </div>
-                                        </div>
-                                        <div className="form-group m-0">
-                                            <button type="submit" className="btn btn-primary">
-                                                Zaloguj
-                                                {loading && (
-                                                    <Spinner
-                                                        as="span"
-                                                        animation="border"
-                                                        size="sm"
-                                                        role="status"
-                                                        aria-hidden="true"
-                                                    />
-                                                )}
-                                                {/* <ClipLoader
-                                //css={override}
-                                size={20}
-                                color={"#123abc"}
-                                loading={loading}
-                                /> */}
-                                            </button>
-                                        </div>
-                                    </form>
-                                    {error &&
-                                        <Alert style={{ marginTop: '20px' }} variant="danger">
-                                            {error}
-                                        </Alert>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+        <Row className="justify-content-md-center" style={{ margin: '60px' }}>
+            <Col xs={5}>
+                <Card className={"border border-dark bg-dark text-white"}>
+                    {/*<div className="row justify-content-md-center h-100">*/}
+                    <Card.Header>
+                        <FontAwesomeIcon icon={faSignInAlt} /> Zaloguj się!
+                    </Card.Header>
+                        <Card.Body>
+                            <label htmlFor="email">Login</label>
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <InputGroup>
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text>
+                                            <FontAwesomeIcon icon={faEnvelope} />
+                                        </InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <FormControl
+                                        required
+                                        id={"username"}
+                                        autoComplete="off"
+                                        type="text"
+                                        name="userName"
+                                        value={values.userName}
+                                        onChange={handleChange}
+                                        className={"bg-dark text-white"}
+                                        placeholder="Login"
+                                    />
+                                    </InputGroup>
+                                </Form.Group>
+                            </Form.Row>
+                            <label>Hasło</label>
+                            <Form.Row>
+                                <Form.Group as={Col}>
+                                    <InputGroup>
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text>
+                                                <FontAwesomeIcon icon={faLock} />
+                                            </InputGroup.Text>
+                                        </InputGroup.Prepend>
+                                        <FormControl
+                                            id={"password"}
+                                            required
+                                            autoComplete="off"
+                                            type="password"
+                                            name="password"
+                                            value={values.password}
+                                            onChange={handleChange}
+                                            className={"bg-dark text-white"}
+                                            placeholder="Hasło"
+                                        />
+                                    </InputGroup>
+                                </Form.Group>
+                            </Form.Row>
+                            {error &&
+                                <Alert style={{ marginTop: '20px' }} variant="danger">
+                                    {error}
+                                </Alert>
+                            }
+                        </Card.Body>
+                    <Card.Footer style={{ textAlign: "right" }}>
+                        <Button
+                            size={"sm"}
+                            type={"submit"}
+                            variant={"success"}
+                            onClick={handleSubmit}
+                            disabled={values.userName.length === 0 || values.password.length === 0}>
+                            <FontAwesomeIcon icon={faSignInAlt} /> Login {loading && (
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                            />
+                        )}
+                        </Button>
+                    </Card.Footer>
+                </Card>
+            </Col>
+        </Row>
+
     )
 
 }

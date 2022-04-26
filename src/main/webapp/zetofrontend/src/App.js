@@ -4,15 +4,18 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import  LoginPage from './pages/LoginPage';
 import { Dashboard } from './pages/dashboard/dashboard';
+import NavigationBar from "./pages/NavigationBar";
+import Footer from "./pages/Footer";
 
 
 function App() {
   return (
       <BrowserRouter>
+          <NavigationBar/>
+          <Footer/>
         <Switch>
           <Route exact path="/" component={LoginPage}/>
           <Route exact path="/dashboard" component={Dashboard}/>
