@@ -1,0 +1,29 @@
+ src/main/webapp/zetofrontend/.gitignore            |    23 [32m+[m
+ src/main/webapp/zetofrontend/README.md             |    70 [32m+[m
+ src/main/webapp/zetofrontend/package-lock.json     | 31604 [32m+++++++++++++++++++[m
+ src/main/webapp/zetofrontend/package.json          |    48 [32m+[m
+ src/main/webapp/zetofrontend/public/favicon.ico    |   Bin [31m0[m -> [32m3870[m bytes
+ src/main/webapp/zetofrontend/public/index.html     |    43 [32m+[m
+ src/main/webapp/zetofrontend/public/logo192.png    |   Bin [31m0[m -> [32m5347[m bytes
+ src/main/webapp/zetofrontend/public/logo512.png    |   Bin [31m0[m -> [32m9664[m bytes
+ src/main/webapp/zetofrontend/public/manifest.json  |    25 [32m+[m
+ src/main/webapp/zetofrontend/public/robots.txt     |     3 [32m+[m
+ src/main/webapp/zetofrontend/src/App.css           |    38 [32m+[m
+ src/main/webapp/zetofrontend/src/App.js            |    28 [32m+[m
+ src/main/webapp/zetofrontend/src/App.test.js       |     8 [32m+[m
+ .../zetofrontend/src/api/authenticationService.js  |    24 [32m+[m
+ src/main/webapp/zetofrontend/src/index.css         |    13 [32m+[m
+ src/main/webapp/zetofrontend/src/index.js          |    22 [32m+[m
+ src/main/webapp/zetofrontend/src/pages/Footer.js   |    25 [32m+[m
+ .../webapp/zetofrontend/src/pages/LoginPage.js     |   164 [32m+[m
+ .../src/pages/dashboard/NavigationBar.js           |    16 [32m+[m
+ .../zetofrontend/src/pages/dashboard/dashboard.js  |    44 [32m+[m
+ .../webapp/zetofrontend/src/pages/loginpage.css    |     7 [32m+[m
+ .../webapp/zetofrontend/src/redux/authActions.js   |    24 [32m+[m
+ .../webapp/zetofrontend/src/redux/reducers/auth.js |    31 [32m+[m
+ .../zetofrontend/src/redux/reducers/index.js       |     7 [32m+[m
+ src/main/webapp/zetofrontend/src/redux/store.js    |     6 [32m+[m
+ src/main/webapp/zetofrontend/src/redux/types.js    |     3 [32m+[m
+ .../webapp/zetofrontend/src/reportWebVitals.js     |    13 [32m+[m
+ src/main/webapp/zetofrontend/src/setupTests.js     |     5 [32m+[m
+ 28 files changed, 32294 insertions(+)
