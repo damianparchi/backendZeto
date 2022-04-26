@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //http.authorizeRequests().anyRequest().permitAll(); //pozwala wejsc kazdemu requestowi
+//        http.authorizeRequests().anyRequest().permitAll(); //pozwala wejsc kazdemu requestowi
 
         //http.authorizeRequests().anyRequest().authenticated(); // kazdy request ktory wchodzi do app musi byc autoryzowany
 
