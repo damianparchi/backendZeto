@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //definujemy username i password do autoryzacji in-memory
-        auth.inMemoryAuthentication().withUser("parchi").password(passwordEncoder().encode("damian123")).roles("USER","ADMIN");
+        //auth.inMemoryAuthentication().withUser("parchi").password(passwordEncoder().encode("damian123")).roles("USER","ADMIN");
 
         //database auth
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
@@ -52,15 +52,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //http.authorizeRequests().anyRequest().permitAll(); //pozwala wejsc kazdemu requestowi
+      // http.authorizeRequests().anyRequest().permitAll(); //pozwala wejsc kazdemu requestowi
 
-        //http.authorizeRequests().anyRequest().authenticated(); // kazdy request ktory wchodzi do app musi byc autoryzowany
+       // http.authorizeRequests().anyRequest().authenticated(); // kazdy request ktory wchodzi do app musi byc autoryzowany
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint).and().authorizeRequests((request) -> request.antMatchers("/h2-console/**", "/api/v1/auth/login").permitAll()
                         .antMatchers(HttpMethod.OPTIONS, "/**").permitAll().anyRequest().authenticated())
-                        .addFilterBefore(new JWTAuthenticationFilter(userService, jwtTokenHelper),
-                                UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JWTAuthenticationFilter(userService, jwtTokenHelper),
+                        UsernamePasswordAuthenticationFilter.class);
         http.cors();
 
         http.csrf().disable().headers().frameOptions().disable();
