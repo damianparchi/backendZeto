@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,8 +16,8 @@ public class Tasks {
 
     private Long idUser;
     private Long idAdmin;
-    private LocalDateTime created;
-    private LocalDateTime deadline;
+    private String created;
+    private String deadline;
     private String title;
     private String description;
     private boolean done;
@@ -30,13 +32,13 @@ public class Tasks {
 
     public void setIdAdmin(Long idAdmin) {this.idAdmin = idAdmin;}
 
-    public LocalDateTime getCreated() {return created;}
+    public String getCreated() {return created;}
 
-    public void setCreated(LocalDateTime created) {this.created = created;}
+    public void setCreated(String created) {this.created = created;}
 
-    public LocalDateTime getDeadline() {return deadline;}
+    public String getDeadline() {return deadline;}
 
-    public void setDeadline(LocalDateTime deadline) {this.deadline = deadline;}
+    public void setDeadline(String deadline) {this.deadline = deadline;}
 
     public String getTitle() {return title;}
 

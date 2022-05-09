@@ -2,16 +2,20 @@ package com.example.backend;
 
 import com.example.backend.controllers.UserController;
 import com.example.backend.entities.Roles;
+import com.example.backend.entities.Tasks;
 import com.example.backend.entities.User;
 import com.example.backend.repositories.RegisteredHoursRepository;
 import com.example.backend.repositories.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.config.Task;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +67,19 @@ public class BackendApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BackendApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        Tasks task = new Tasks();
+        task.setTitle("Pierwszy task");
+        task.setDescription("czesc");
+        task.setDeadline("2001.07.04");
+        task.setIdAdmin(2123);
+        task.setIdUser(1);
+        task.setDone(0);
+        service.saveOrUpdate(task);
+
     }
 
 

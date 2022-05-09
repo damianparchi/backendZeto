@@ -16,8 +16,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@RequestMapping(path = "/zadania")
+@RestController
+@RequestMapping(path = "/tasks")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TasksController {
     @Autowired
     private TasksRepository tasksRepository;

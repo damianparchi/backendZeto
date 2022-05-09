@@ -6,6 +6,25 @@ import {faCalendar, faPlusSquare, faSave, faSignOutAlt} from "@fortawesome/free-
 import Footer from "../Footer";
 
 export default class TaskAdmin extends Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = {title:'', description: '', deadline: '', done: '', idUser: '', idAdmin: ''};
+        this.taskChange = this.taskChange.bind(this);
+        this.submitTask = this.submitTask.bind(this);
+    }
+
+    submitTask(event) {
+        alert('title: ' + this.state.title +', description: ' + this.state.description + ', Deadline: ' + this.state.deadline + ', Done: '+ this.state.done + ', idUser: '+ this.state.idUser + ', idAdmin: '+ this.state.idAdmin);
+        event.preventDefault();
+    }
+
+    taskChange(event) {
+        this.setState({
+            [event.target.name]:event.target.value
+        });
+    }
+    
     render() {
         const logOut=()=>{
 
@@ -34,70 +53,70 @@ export default class TaskAdmin extends Component {
                     <Card.Header>
                         <FontAwesomeIcon icon={faPlusSquare}/> Dodaj Nowy Task
                     </Card.Header>
-                    <Form>
+                    <Form onSubmit = {this.submitTask} id = "taskFormId">
                         <Card.Body>
                             <Form.Row>
-                                <Form.Group as={Col}>
+                                <Form.Group as={Col} controlId="formGridTitle">
                                     <Form.Label>Nazwa</Form.Label>
                                     <Form.Control
                                         required
                                         type="text" name="title"
-                                        value={""}
-                                        onChange={""}
+                                        value={this.state.title}
+                                        onChange={this.taskChange}
                                         className="bg-dark text-white"
                                         placeholder="Podaj nazwe"/>
                                 </Form.Group>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Typ</Form.Label>
+                                <Form.Group as={Col} controlId="formGridPrzypisanePrzez">
+                                    <Form.Label>Przypisane przez</Form.Label>
                                     <Form.Control
                                         required
-                                        type="text" name="typ"
-                                        value={""}
-                                        onChange={""}
+                                        type="text" name="idAdmin"
+                                        value={this.state.idAdmin}
+                                        onChange={this.taskChange}
                                         className="bg-dark text-white"
-                                        placeholder="Podaj typ"/>
+                                        placeholder="Podaj nazwe osoby przypisujacej zadanie"/>
                                 </Form.Group>
                             </Form.Row>
                             <Form.Row>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Status</Form.Label>
+                                <Form.Group as={Col} controlId="formGridOpis">
+                                    <Form.Label>Podaj opis</Form.Label>
                                     <Form.Control
                                         required
-                                        type="text" name="status"
-                                        value={""}
-                                        onChange={""}
+                                        type="text" name="description"
+                                        value={this.state.description}
+                                        onChange={this.taskChange}
                                         className="bg-dark text-white"
-                                        placeholder="Podaj status"/>
+                                        placeholder="Podaj opis"/>
                                 </Form.Group>
-                                <Form.Group as={Col}>
+                                <Form.Group as={Col} controlId="formGridPrzypisaneDla">
                                     <Form.Label>Przypisane dla</Form.Label>
                                     <Form.Control
                                         required
-                                        type="text" name="przypisaneDla"
-                                        value={""}
-                                        onChange={""}
+                                        type="text" name="idUser"
+                                        value={this.state.idUser}
+                                        onChange={this.taskChange}
                                         className="bg-dark text-white"
                                         placeholder="Przypisz dla"/>
                                 </Form.Group>
                             </Form.Row>
                             <Form.Row>
-                                <Form.Group as={Col}>
-                                    <Form.Label>Ilosc godzin</Form.Label>
+                                <Form.Group as={Col} controlId="formGridDeadline">
+                                    <Form.Label>Podaj deadline</Form.Label>
                                     <Form.Control
                                         required
-                                        type="text" name="iloscGodzin"
-                                        value={""}
-                                        onChange={""}
+                                        type="text" name="deadline"
+                                        value={this.state.deadline}
+                                        onChange={this.taskChange}
                                         className="bg-dark text-white"
-                                        placeholder="Podaj ilosc godzin"/>
+                                        placeholder="Podaj deadline"/>
                                 </Form.Group>
-                                <Form.Group as={Col}>
+                                <Form.Group as={Col} controlId="formGridDone">
                                     <Form.Label>Priorytet</Form.Label>
                                     <Form.Control
                                         required
-                                        type="text" name="priorytet"
-                                        value={""}
-                                        onChange={""}
+                                        type="text" name="done"
+                                        value={this.state.done}
+                                        onChange={this.taskChange}
                                         className="bg-dark text-white"
                                         placeholder="Podaj priorytet"/>
                                 </Form.Group>
