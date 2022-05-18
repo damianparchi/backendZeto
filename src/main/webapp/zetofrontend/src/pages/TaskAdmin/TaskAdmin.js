@@ -6,7 +6,11 @@ import {faCalendar, faPlusSquare, faSave, faSignOutAlt} from "@fortawesome/free-
 import Footer from "../Footer";
 
 export default class TaskAdmin extends Component {
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> b54a9095458d6e2b147bd163a76454f208124103
     constructor(props) {
         super(props);
         this.state = {title:'', description: '', deadline: '', done: '', idUser: '', idAdmin: ''};
@@ -24,7 +28,11 @@ export default class TaskAdmin extends Component {
             [event.target.name]:event.target.value
         });
     }
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> b54a9095458d6e2b147bd163a76454f208124103
     render() {
         const logOut=()=>{
 

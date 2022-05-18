@@ -7,8 +7,12 @@ import {Nav, Navbar, Card, Table} from "react-bootstrap";
 import axios from 'axios'
 
 export default class TaskListAdmin extends Component {
+<<<<<<< HEAD
 
 
+=======
+    
+>>>>>>> b54a9095458d6e2b147bd163a76454f208124103
     constructor(props) {
         super(props);
         this.state = {
@@ -16,12 +20,20 @@ export default class TaskListAdmin extends Component {
         };
     }
 
+<<<<<<< HEAD
 
     componentDidMount() {
         axios.get("http://localhost:8080/tasks")
             .then(response => console.log(response.data));
     }
 
+=======
+    componentDidMount() {
+        axios.get("http://localhost:8080/rest/tasks")
+        .then(response => console.log(response.data));
+    }
+    
+>>>>>>> b54a9095458d6e2b147bd163a76454f208124103
     render() {
 
         const logOut=()=>{
