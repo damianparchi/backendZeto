@@ -22,6 +22,7 @@ export const Dashboard=(props)=>{
         }).catch((e)=>{
             localStorage.clear();
             props.history.push('/');
+            console.log()
         })
     },[])
 

@@ -4,9 +4,24 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCalendar, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {Nav, Navbar, Card, Table} from "react-bootstrap";
-
+import axios from 'axios'
 
 export default class TaskListAdmin extends Component {
+
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            tasks: []
+        };
+    }
+
+
+    componentDidMount() {
+        axios.get("http://localhost:8080/tasks")
+            .then(response => console.log(response.data));
+    }
+
     render() {
 
         const logOut=()=>{
