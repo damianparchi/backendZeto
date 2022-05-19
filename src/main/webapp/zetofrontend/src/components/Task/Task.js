@@ -18,8 +18,6 @@ class Task extends Component {
             priorytety: [],
             show: false
         }
-        this.taskChange = this.taskChange.bind(this);
-        this.submitTask = this.submitTask.bind(this);
     }
 
     initialState = {
@@ -293,7 +291,7 @@ class Task extends Component {
                             <Button variant={"info"} type={"reset"}>
                                 <FontAwesomeIcon icon={faUndo}/> Wyczyść
                             </Button>{' '}
-                            <Button variant={"info"} type={"button"} onClick={this.taskList.bind()}>
+                            <Button variant={"info"} type={"button"} onClick={() => this.taskList()}>
                                 <FontAwesomeIcon icon={faList}/> Lista Tasków
                             </Button>
                         </Card.Footer>

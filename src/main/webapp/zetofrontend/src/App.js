@@ -9,10 +9,10 @@ import TaskList from "./components/Task/TaskList";
 import UserList from "./components/User/UserList";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
-
+import Home from "./components/Home";
 
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-export default function App() {
+const App = () => {
 
   window.onbeforeunload = (event) => {
     const e = event || window.event;
@@ -23,11 +23,6 @@ export default function App() {
     return '';
   }
 
-
-  const heading = "Witaj w Systemie pracy zdalnej!"
-  const desc = "Ciezka praca to klucz do sukcesu!"
-  const footer = "Damian Coelho"
-
   return (
     <Router>
       <NavigationBar/>
@@ -35,14 +30,15 @@ export default function App() {
             <Row>
               <Col lg={12} className="marginTop">
                 <Switch>
-                  <Route path="/" exact component={() => <Welcome heading={heading} desc={desc} footer={footer}/>}/>
+                  <Route path="/" exact component={Welcome}/>
+                  <Route path="/home" exact component={Home}/>
                   <Route path="/add" exact component={Task}/>
                   <Route path="/edit/:id" exact component={Task}/>
                   <Route path="/list" exact component={TaskList}/>
                   <Route path="/users" exact component={UserList}/>
                   <Route path="/register" exact component={Register}/>
                   <Route path="/login" exact component={Login}/>
-                  <Route path="/logout" exact component={Login}/>
+                  <Route path="/logout" exact component={() => <Login message = "Wylogowano pomyślnie."/>}/>
                 </Switch>
               </Col>
             </Row>
@@ -51,3 +47,5 @@ export default function App() {
     </Router>
   );
 }
+
+export default App;

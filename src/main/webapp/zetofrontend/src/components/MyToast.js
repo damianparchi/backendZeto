@@ -2,9 +2,11 @@ import React from "react";
 
 import {Toast} from "react-bootstrap";
 
-export default function MyToast(props) {
+const MyToast = (props) => {
         const toastCss = {
+            position: 'relative',
             marginTop : '50px',
+            marginBottom: '50px',
             marginLeft: '380px',
             textAlign: 'center',
             boxShadow: '0 4px 8px 0 rgba (0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)'
@@ -23,3 +25,5 @@ export default function MyToast(props) {
             </div>
         )
 }
+
+export default MyToast;

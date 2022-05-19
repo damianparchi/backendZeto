@@ -218,7 +218,7 @@ class TaskList extends Component {
                                             <td>
                                                 <ButtonGroup>
                                                     <Link to={"/edit/"+task.id} className="btn btn-sm btn-outline-primary"><FontAwesomeIcon icon={faEdit}/></Link>{' '}
-                                                    <Button size={"sm"} variant={"outline-danger"} onClick={this.deleteTask.bind(this, task.id)}><FontAwesomeIcon icon={faTrash}/></Button>
+                                                    <Button size={"sm"} variant={"outline-danger"} onClick={() => this.deleteTask(task.id)}><FontAwesomeIcon icon={faTrash}/></Button>
                                                 </ButtonGroup>
                                             </td>
                                         </tr>

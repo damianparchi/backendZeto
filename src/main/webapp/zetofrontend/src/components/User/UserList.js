@@ -83,7 +83,7 @@ class UserList extends Component {
 
         const userData = this.props.userData;
         const users = userData.users;
-        const obecniUsers = users.slice(pierwszyIndeks, ostatniIndeks);
+        const obecniUsers = users && users.slice(pierwszyIndeks, ostatniIndeks);
         const wszystkieStrony = users.length / usersNaStrone;
 
         return (

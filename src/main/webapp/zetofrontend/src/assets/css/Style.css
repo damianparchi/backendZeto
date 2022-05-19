@@ -29,3 +29,19 @@
 .strzalka-dol {
     border-top: 10px solid white;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #606060;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #bebebe;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #bebebe;
+}

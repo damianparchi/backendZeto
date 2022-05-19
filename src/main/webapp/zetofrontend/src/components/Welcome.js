@@ -1,23 +1,34 @@
-import React from "react";
-import authToken from '../utils/authToken';
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import {Card} from "react-bootstrap";
 
-export default function Welcome(props) {
+const Welcome = (props) => {
 
-    if(localStorage.jwtToken) {
-        authToken(localStorage.jwtToken);
-    }
+    const [quotes, setQuotes] = useState("")
 
-        return (
-            <div className={"bg-dark text-white jumbotron"}>
-                <h1>{props.heading}</h1>
-                <blockquote className={"blockquote mb-0"}>
-                    <p>
-                        {props.desc}
-                    </p>
-                    <footer className={"blockquote-footer"}>
-                        {props.footer}
-                    </footer>
-                </blockquote>
-            </div>
-        );
+    useEffect(() => {
+        if(quotes === '') {
+            axios.get('https://type.fit/api/quotes').then((response) => {
+                setQuotes(response.data);
+            })
+        }
+    }, [quotes])
+
+    return (
+        <Card bg={"dark"} text={"light"}>
+            <Card.Header>
+                generowane cytaty - tu bedzie cos na stronie głównej do poczytania
+            </Card.Header>
+            <Card.Body style={{overflowY: "scroll", height: "570px"}}>
+                {quotes && quotes.map((quote, id) => (
+                    <blockquote className={'blockquote mb-0'} key={id}>
+                        <p>{quote.text}</p>
+                        <footer className={'blockquote-footer'}>{quote.author}</footer>
+                    </blockquote>
+                ))}
+            </Card.Body>
+        </Card>
+    );
 }
+
+export default Welcome;

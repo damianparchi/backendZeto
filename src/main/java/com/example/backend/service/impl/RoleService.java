@@ -2,6 +2,7 @@ package com.example.projektzeto.service.impl;
 
 import com.example.projektzeto.entity.Role;
 import com.example.projektzeto.repository.RoleRepository;
+import com.example.projektzeto.service.IRoleService;
 import com.example.projektzeto.service.IService;
 
 import org.codehaus.jettison.json.JSONException;
@@ -13,7 +14,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class RoleService implements IService<Role> {
+public class RoleService implements IRoleService<Role> {
 
     @Autowired
     private RoleRepository roleRepository;
@@ -26,6 +27,11 @@ public class RoleService implements IService<Role> {
     @Override
     public Optional<Role> findById(Long id) {
         return roleRepository.findById(id);
+    }
+
+    @Override
+    public Role findByName(String name) {
+        return roleRepository.findByName(name);
     }
 
     @Override
@@ -44,4 +50,6 @@ public class RoleService implements IService<Role> {
         }
         return jsonObject.toString();
     }
+
+
 }

@@ -30,7 +30,7 @@ class Login extends Component {
         this.props.authenticateUser(this.state.email, this.state.password)
         setTimeout(() => {
             if(this.props.auth.isLoggedIn) {
-                return this.props.history.push("/")
+                return this.props.history.push("/home")
             } else {
                 this.resetForm();
                 this.setState({"error": "Zły email i hasło"})
@@ -47,6 +47,7 @@ class Login extends Component {
         return (
             <Row className={"justify-content-md-center"}>
                 <Col xs={5}>
+                    {this.props.message && <Alert variant={"success"}>{this.props.message}</Alert>}
                     {error && <Alert variant={"danger"}>{error}</Alert>}
                     <Card className={"border border-dark bg-dark text-white"}>
                        <Card.Header>
