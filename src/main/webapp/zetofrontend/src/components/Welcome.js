@@ -16,8 +16,13 @@ const Welcome = (props) => {
 
     return (
         <Card bg={"dark"} text={"light"}>
+<<<<<<< HEAD
             <Card.Header>
                 generowane cytaty - tu bedzie cos na stronie głównej do poczytania
+=======
+            <Card.Header style={{textAlign: "center", fontWeight:"500px", fontFamily: "Montserrat", fontSize: "24px"}}>
+                Firmowe nowości!
+>>>>>>> efa52a9 (frontend fix)
             </Card.Header>
             <Card.Body style={{overflowY: "scroll", height: "570px"}}>
                 {quotes && quotes.map((quote, id) => (

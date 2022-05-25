@@ -1,6 +1,11 @@
 import * as UT from './userTypes'
 import axios from "axios";
 
+<<<<<<< HEAD
+=======
+const REGISTER_URL = 'http://localhost:8080/user/register';
+
+>>>>>>> efa52a9 (frontend fix)
 
 export const fetchUsers = () => {
     return dispatch => {
@@ -15,6 +20,7 @@ export const fetchUsers = () => {
     }
 }
 
+<<<<<<< HEAD
 export const registerUser = (userObj) => {
     return dispatch => {
         dispatch(userRequest())
@@ -28,6 +34,17 @@ export const registerUser = (userObj) => {
             .catch(error => {
                 dispatch(userFailure(error.message))
             })
+=======
+export const registerUser = (userObj) => async (dispatch) => {
+    dispatch(userRequest())
+    try {
+        const response = await axios.post(REGISTER_URL, userObj)
+        dispatch(userSavedSuccess(response.data))
+        return Promise.resolve(response.data)
+    } catch(error) {
+        dispatch(userFailure(error.message))
+        return Promise.reject(error)
+>>>>>>> efa52a9 (frontend fix)
     }
 }
 
@@ -37,6 +54,16 @@ const userRequest = () => {
     }
 }
 
+<<<<<<< HEAD
+=======
+const userSavedSuccess = (user) => {
+    return {
+        type: UT.USER_SAVED_SUCCESS,
+        payload: user
+    }
+}
+
+>>>>>>> efa52a9 (frontend fix)
 const userSuccess = users => {
     return {
         type: UT.USER_SUCCESS,
