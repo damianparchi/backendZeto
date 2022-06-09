@@ -8,6 +8,7 @@ import com.example.backend.repositories.UserDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +18,8 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={
+        "com.example.backend.services"})
 public class BackendApplication {
 
     @Autowired

@@ -8,6 +8,8 @@ import com.example.backend.requests.PasswordChange;
 import com.example.backend.requests.RegisterForm;
 import com.example.backend.response.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +30,12 @@ public class UserController {
     private RoleRepository roleRepository;
 
     @PostMapping(path = "/add")
-    public @ResponseBody String addUser(@RequestBody RegisterForm registerForm) {
+    public @ResponseBody String addUser(@RequestBody RegisterForm registerForm) throws Exception {
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(u.getAuthorities().iterator().next().getAuthority().equals("ADMIN")) {
             if(userDetailsRepository.findByUserName(registerForm.getUserName()) != null){
-                return "Nieprawidłowa nazwa użytkownika";
+
+                throw new Exception();
             }
             List<Roles> rolesList = new ArrayList<>();
             rolesList.add(createUser());
@@ -50,25 +53,25 @@ public class UserController {
             user.setRoles(rolesList);
 
             userDetailsRepository.save(user);
-            return "Pomyślnie Utworzono Użytkownika";
+            return "ok";
         }
-        return "Brak Autoryzacji";
+        throw new Exception();
     }
 
     @PostMapping(path = "/usun")
-    public @ResponseBody String deleteUser(@RequestParam Long id){
+    public @ResponseBody String deleteUser(@RequestParam Long id) throws Exception {
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(u.getAuthorities().iterator().next().getAuthority().equals("ADMIN")) {
             if(u.getId() == id){
-                return "Nie można usunąć własnego konta";
+                throw new Exception();
             }
             else if(id == 1){
-                return "Nie można usunąć głównego Administratora";
+                throw new Exception();
             }
             userDetailsRepository.deleteById(id);
             return "Usunięto użytkownika";
         }
-        return "Brak Autoryzacji";
+        throw new Exception();
     }
 
     @PostMapping(path = "/edytuj")
@@ -77,7 +80,7 @@ public class UserController {
                                          @RequestParam(required = false) String firstName,
                                          @RequestParam(required = false) String lastName,
                                          @RequestParam(required = false) String email,
-                                         @RequestParam(required = false) String phoneNumber){
+                                         @RequestParam(required = false) String phoneNumber) throws Exception {
         User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user;
         if (id != null){
@@ -94,7 +97,7 @@ public class UserController {
 
         if(userName != null){
             if(userDetailsRepository.findByUserName(userName) != null){
-                return "Nazwa uzytkownika jest już zajęta";
+                throw new Exception();
             }
             user.setUserName(userName);
         }
@@ -218,6 +221,17 @@ public class UserController {
             return role;
         }
         return role;
+    }
+
+    @GetMapping(path="/role")
+    public @ResponseBody String returnRole() throws Exception {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user.getAuthorities().iterator().next().getAuthority().equals("ADMIN")){
+            return "ok";
+        }
+        else {
+            throw new Exception();
+        }
     }
 
 

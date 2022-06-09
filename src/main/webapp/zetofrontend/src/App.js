@@ -1,26 +1,50 @@
-import React from 'react';
+import React from "react";
 import './App.css';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-} from "react-router-dom";
-import  LoginPage from './pages/LoginPage';
-import { Dashboard } from './pages/dashboard/dashboard';
-import NavigationBar from "./pages/NavigationBar";
-import Footer from "./pages/Footer";
+import NavigationBar from "./components/NavigationBar";
+import {Container, Row, Col} from "react-bootstrap";
+import Welcome from "./components/Welcome";
+import Footer from "./components/Footer";
+import Task from "./components/Task/Task";
+import TaskList from "./components/Task/TaskList";
+import UserList from "./components/User/UserList";
+import Login from "./components/User/Login";
+import Register from "./components/User/Register";
+import Home from "./components/Home";
 
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+const App = () => {
 
-function App() {
+  window.onbeforeunload = (event) => {
+    const e = event || window.event;
+    e.preventDefault();
+    if (e) {
+      e.returnValue = '';
+    }
+    return '';
+  }
+
   return (
-      <BrowserRouter>
-          <NavigationBar/>
-          <Footer/>
-        <Switch>
-          <Route exact path="/" component={LoginPage}/>
-          <Route exact path="/dashboard" component={Dashboard}/>
-        </Switch>
-      </BrowserRouter>
+    <Router>
+      <NavigationBar/>
+        <Container>
+            <Row>
+              <Col lg={12} className="marginTop">
+                <Switch>
+                  <Route path="/" exact component={Welcome}/>
+                  <Route path="/home" exact component={Home}/>
+                  <Route path="/add" exact component={Task}/>
+                  <Route path="/edit/:id" exact component={Task}/>
+                  <Route path="/list" exact component={TaskList}/>
+                  <Route path="/users" exact component={UserList}/>
+                  <Route path="/register" exact component={Register}/>
+                  <Route path="/login" exact component={Login}/>
+                  <Route path="/logout" exact component={Login}/>
+                </Switch>
+              </Col>
+            </Row>
+        </Container>
+        <Footer/>
+    </Router>
   );
 }
 
